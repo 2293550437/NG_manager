@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqm.mapper.TbMenuClassMapper">
+  <resultMap id="BaseResultMap" type="com.cqm.pojo.TbMenuClass">
+    <id column="meclass_id" jdbcType="BIGINT" property="meclassId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="greens_brand" jdbcType="VARCHAR" property="greensBrand" />
+    <result column="greens_taste" jdbcType="VARCHAR" property="greensTaste" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    meclass_id, name, greens_brand, greens_taste
+  </sql>
+  <select id="selectByExample" parameterType="com.cqm.pojo.TbMenuClassExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_menu_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_menu_class
+    where meclass_id = #{meclassId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_menu_class
+    where meclass_id = #{meclassId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cqm.pojo.TbMenuClassExample">
+    delete from tb_menu_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cqm.pojo.TbMenuClass">
+    insert into tb_menu_class (meclass_id, name, greens_brand, 
+      greens_taste)
+    values (#{meclassId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{greensBrand,jdbcType=VARCHAR}, 
+      #{greensTaste,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqm.pojo.TbMenuClass">
+    insert into tb_menu_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="meclassId != null">
+        meclass_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="greensBrand != null">
+        greens_brand,
+      </if>
+      <if test="greensTaste != null">
+        greens_taste,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="meclassId != null">
+        #{meclassId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="greensBrand != null">
+        #{greensBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="greensTaste != null">
+        #{greensTaste,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cqm.pojo.TbMenuClassExample" resultType="java.lang.Long">
+    select count(*) from tb_menu_class
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_menu_class
+    <set>
+      <if test="record.meclassId != null">
+        meclass_id = #{record.meclassId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greensBrand != null">
+        greens_brand = #{record.greensBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="record.greensTaste != null">
+        greens_taste = #{record.greensTaste,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_menu_class
+    set meclass_id = #{record.meclassId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      greens_brand = #{record.greensBrand,jdbcType=VARCHAR},
+      greens_taste = #{record.greensTaste,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqm.pojo.TbMenuClass">
+    update tb_menu_class
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="greensBrand != null">
+        greens_brand = #{greensBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="greensTaste != null">
+        greens_taste = #{greensTaste,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where meclass_id = #{meclassId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqm.pojo.TbMenuClass">
+    update tb_menu_class
+    set name = #{name,jdbcType=VARCHAR},
+      greens_brand = #{greensBrand,jdbcType=VARCHAR},
+      greens_taste = #{greensTaste,jdbcType=VARCHAR}
+    where meclass_id = #{meclassId,jdbcType=BIGINT}
+  </update>
+</mapper>

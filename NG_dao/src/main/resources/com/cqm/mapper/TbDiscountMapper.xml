@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqm.mapper.TbDiscountMapper">
+  <resultMap id="BaseResultMap" type="com.cqm.pojo.TbDiscount">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="discout" jdbcType="DOUBLE" property="discout" />
+    <result column="starttime" jdbcType="DATE" property="starttime" />
+    <result column="endtime" jdbcType="DATE" property="endtime" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="discription" jdbcType="VARCHAR" property="discription" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, name, discout, starttime, endtime, status, discription
+  </sql>
+  <select id="selectByExample" parameterType="com.cqm.pojo.TbDiscountExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_discount
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_discount
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_discount
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cqm.pojo.TbDiscountExample">
+    delete from tb_discount
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cqm.pojo.TbDiscount">
+    insert into tb_discount (id, name, discout, 
+      starttime, endtime, status, 
+      discription)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{discout,jdbcType=DOUBLE}, 
+      #{starttime,jdbcType=DATE}, #{endtime,jdbcType=DATE}, #{status,jdbcType=VARCHAR}, 
+      #{discription,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqm.pojo.TbDiscount">
+    insert into tb_discount
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="discout != null">
+        discout,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="discription != null">
+        discription,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="discout != null">
+        #{discout,jdbcType=DOUBLE},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="discription != null">
+        #{discription,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cqm.pojo.TbDiscountExample" resultType="java.lang.Long">
+    select count(*) from tb_discount
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_discount
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discout != null">
+        discout = #{record.discout,jdbcType=DOUBLE},
+      </if>
+      <if test="record.starttime != null">
+        starttime = #{record.starttime,jdbcType=DATE},
+      </if>
+      <if test="record.endtime != null">
+        endtime = #{record.endtime,jdbcType=DATE},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.discription != null">
+        discription = #{record.discription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_discount
+    set id = #{record.id,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      discout = #{record.discout,jdbcType=DOUBLE},
+      starttime = #{record.starttime,jdbcType=DATE},
+      endtime = #{record.endtime,jdbcType=DATE},
+      status = #{record.status,jdbcType=VARCHAR},
+      discription = #{record.discription,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqm.pojo.TbDiscount">
+    update tb_discount
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="discout != null">
+        discout = #{discout,jdbcType=DOUBLE},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="discription != null">
+        discription = #{discription,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqm.pojo.TbDiscount">
+    update tb_discount
+    set name = #{name,jdbcType=VARCHAR},
+      discout = #{discout,jdbcType=DOUBLE},
+      starttime = #{starttime,jdbcType=DATE},
+      endtime = #{endtime,jdbcType=DATE},
+      status = #{status,jdbcType=VARCHAR},
+      discription = #{discription,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

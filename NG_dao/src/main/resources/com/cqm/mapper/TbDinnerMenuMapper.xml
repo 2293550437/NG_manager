@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqm.mapper.TbDinnerMenuMapper">
+  <resultMap id="BaseResultMap" type="com.cqm.pojo.TbDinnerMenu">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="custtype" jdbcType="VARCHAR" property="custtype" />
+    <result column="memberid" jdbcType="BIGINT" property="memberid" />
+    <result column="custcount" jdbcType="BIGINT" property="custcount" />
+    <result column="addStatus" jdbcType="VARCHAR" property="addstatus" />
+    <result column="createtime" jdbcType="DATE" property="createtime" />
+    <result column="endtime" jdbcType="DATE" property="endtime" />
+    <result column="employId" jdbcType="BIGINT" property="employid" />
+    <result column="foodsList" jdbcType="VARCHAR" property="foodslist" />
+    <result column="ispackage" jdbcType="VARCHAR" property="ispackage" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, custtype, memberid, custcount, addStatus, createtime, endtime, employId, foodsList, 
+    ispackage
+  </sql>
+  <select id="selectByExample" parameterType="com.cqm.pojo.TbDinnerMenuExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_dinner_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_dinner_menu
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_dinner_menu
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cqm.pojo.TbDinnerMenuExample">
+    delete from tb_dinner_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cqm.pojo.TbDinnerMenu">
+    insert into tb_dinner_menu (id, custtype, memberid, 
+      custcount, addStatus, createtime, 
+      endtime, employId, foodsList, 
+      ispackage)
+    values (#{id,jdbcType=BIGINT}, #{custtype,jdbcType=VARCHAR}, #{memberid,jdbcType=BIGINT}, 
+      #{custcount,jdbcType=BIGINT}, #{addstatus,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, 
+      #{endtime,jdbcType=DATE}, #{employid,jdbcType=BIGINT}, #{foodslist,jdbcType=VARCHAR}, 
+      #{ispackage,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqm.pojo.TbDinnerMenu">
+    insert into tb_dinner_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="custtype != null">
+        custtype,
+      </if>
+      <if test="memberid != null">
+        memberid,
+      </if>
+      <if test="custcount != null">
+        custcount,
+      </if>
+      <if test="addstatus != null">
+        addStatus,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="employid != null">
+        employId,
+      </if>
+      <if test="foodslist != null">
+        foodsList,
+      </if>
+      <if test="ispackage != null">
+        ispackage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="custtype != null">
+        #{custtype,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null">
+        #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="custcount != null">
+        #{custcount,jdbcType=BIGINT},
+      </if>
+      <if test="addstatus != null">
+        #{addstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=DATE},
+      </if>
+      <if test="employid != null">
+        #{employid,jdbcType=BIGINT},
+      </if>
+      <if test="foodslist != null">
+        #{foodslist,jdbcType=VARCHAR},
+      </if>
+      <if test="ispackage != null">
+        #{ispackage,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cqm.pojo.TbDinnerMenuExample" resultType="java.lang.Long">
+    select count(*) from tb_dinner_menu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_dinner_menu
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.custtype != null">
+        custtype = #{record.custtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.memberid != null">
+        memberid = #{record.memberid,jdbcType=BIGINT},
+      </if>
+      <if test="record.custcount != null">
+        custcount = #{record.custcount,jdbcType=BIGINT},
+      </if>
+      <if test="record.addstatus != null">
+        addStatus = #{record.addstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createtime = #{record.createtime,jdbcType=DATE},
+      </if>
+      <if test="record.endtime != null">
+        endtime = #{record.endtime,jdbcType=DATE},
+      </if>
+      <if test="record.employid != null">
+        employId = #{record.employid,jdbcType=BIGINT},
+      </if>
+      <if test="record.foodslist != null">
+        foodsList = #{record.foodslist,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ispackage != null">
+        ispackage = #{record.ispackage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_dinner_menu
+    set id = #{record.id,jdbcType=BIGINT},
+      custtype = #{record.custtype,jdbcType=VARCHAR},
+      memberid = #{record.memberid,jdbcType=BIGINT},
+      custcount = #{record.custcount,jdbcType=BIGINT},
+      addStatus = #{record.addstatus,jdbcType=VARCHAR},
+      createtime = #{record.createtime,jdbcType=DATE},
+      endtime = #{record.endtime,jdbcType=DATE},
+      employId = #{record.employid,jdbcType=BIGINT},
+      foodsList = #{record.foodslist,jdbcType=VARCHAR},
+      ispackage = #{record.ispackage,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqm.pojo.TbDinnerMenu">
+    update tb_dinner_menu
+    <set>
+      <if test="custtype != null">
+        custtype = #{custtype,jdbcType=VARCHAR},
+      </if>
+      <if test="memberid != null">
+        memberid = #{memberid,jdbcType=BIGINT},
+      </if>
+      <if test="custcount != null">
+        custcount = #{custcount,jdbcType=BIGINT},
+      </if>
+      <if test="addstatus != null">
+        addStatus = #{addstatus,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=DATE},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=DATE},
+      </if>
+      <if test="employid != null">
+        employId = #{employid,jdbcType=BIGINT},
+      </if>
+      <if test="foodslist != null">
+        foodsList = #{foodslist,jdbcType=VARCHAR},
+      </if>
+      <if test="ispackage != null">
+        ispackage = #{ispackage,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqm.pojo.TbDinnerMenu">
+    update tb_dinner_menu
+    set custtype = #{custtype,jdbcType=VARCHAR},
+      memberid = #{memberid,jdbcType=BIGINT},
+      custcount = #{custcount,jdbcType=BIGINT},
+      addStatus = #{addstatus,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=DATE},
+      endtime = #{endtime,jdbcType=DATE},
+      employId = #{employid,jdbcType=BIGINT},
+      foodsList = #{foodslist,jdbcType=VARCHAR},
+      ispackage = #{ispackage,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

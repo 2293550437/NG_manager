@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="NG_manager_web" />
+        <module name="NG_pojo" />
+        <module name="NG_menu_web" />
+        <module name="NG_dishes_service" />
+        <module name="NG_common" />
+        <module name="NG_dao" />
+        <module name="NG_dishes_interface" />
+        <module name="NG_empmenu_web" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqm.mapper.TbReserveTableMapper">
+  <resultMap id="BaseResultMap" type="com.cqm.pojo.TbReserveTable">
+    <id column="reserve_id" jdbcType="BIGINT" property="reserveId" />
+    <result column="areaId" jdbcType="BIGINT" property="areaid" />
+    <result column="tableId" jdbcType="BIGINT" property="tableid" />
+    <result column="mumberId" jdbcType="BIGINT" property="mumberid" />
+    <result column="number" jdbcType="VARCHAR" property="number" />
+    <result column="starttime" jdbcType="DATE" property="starttime" />
+    <result column="dinnertime" jdbcType="DATE" property="dinnertime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    reserve_id, areaId, tableId, mumberId, number, starttime, dinnertime
+  </sql>
+  <select id="selectByExample" parameterType="com.cqm.pojo.TbReserveTableExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_reserve_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_reserve_table
+    where reserve_id = #{reserveId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_reserve_table
+    where reserve_id = #{reserveId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cqm.pojo.TbReserveTableExample">
+    delete from tb_reserve_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cqm.pojo.TbReserveTable">
+    insert into tb_reserve_table (reserve_id, areaId, tableId, 
+      mumberId, number, starttime, 
+      dinnertime)
+    values (#{reserveId,jdbcType=BIGINT}, #{areaid,jdbcType=BIGINT}, #{tableid,jdbcType=BIGINT}, 
+      #{mumberid,jdbcType=BIGINT}, #{number,jdbcType=VARCHAR}, #{starttime,jdbcType=DATE}, 
+      #{dinnertime,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqm.pojo.TbReserveTable">
+    insert into tb_reserve_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="reserveId != null">
+        reserve_id,
+      </if>
+      <if test="areaid != null">
+        areaId,
+      </if>
+      <if test="tableid != null">
+        tableId,
+      </if>
+      <if test="mumberid != null">
+        mumberId,
+      </if>
+      <if test="number != null">
+        number,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="dinnertime != null">
+        dinnertime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="reserveId != null">
+        #{reserveId,jdbcType=BIGINT},
+      </if>
+      <if test="areaid != null">
+        #{areaid,jdbcType=BIGINT},
+      </if>
+      <if test="tableid != null">
+        #{tableid,jdbcType=BIGINT},
+      </if>
+      <if test="mumberid != null">
+        #{mumberid,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=DATE},
+      </if>
+      <if test="dinnertime != null">
+        #{dinnertime,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cqm.pojo.TbReserveTableExample" resultType="java.lang.Long">
+    select count(*) from tb_reserve_table
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_reserve_table
+    <set>
+      <if test="record.reserveId != null">
+        reserve_id = #{record.reserveId,jdbcType=BIGINT},
+      </if>
+      <if test="record.areaid != null">
+        areaId = #{record.areaid,jdbcType=BIGINT},
+      </if>
+      <if test="record.tableid != null">
+        tableId = #{record.tableid,jdbcType=BIGINT},
+      </if>
+      <if test="record.mumberid != null">
+        mumberId = #{record.mumberid,jdbcType=BIGINT},
+      </if>
+      <if test="record.number != null">
+        number = #{record.number,jdbcType=VARCHAR},
+      </if>
+      <if test="record.starttime != null">
+        starttime = #{record.starttime,jdbcType=DATE},
+      </if>
+      <if test="record.dinnertime != null">
+        dinnertime = #{record.dinnertime,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_reserve_table
+    set reserve_id = #{record.reserveId,jdbcType=BIGINT},
+      areaId = #{record.areaid,jdbcType=BIGINT},
+      tableId = #{record.tableid,jdbcType=BIGINT},
+      mumberId = #{record.mumberid,jdbcType=BIGINT},
+      number = #{record.number,jdbcType=VARCHAR},
+      starttime = #{record.starttime,jdbcType=DATE},
+      dinnertime = #{record.dinnertime,jdbcType=DATE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqm.pojo.TbReserveTable">
+    update tb_reserve_table
+    <set>
+      <if test="areaid != null">
+        areaId = #{areaid,jdbcType=BIGINT},
+      </if>
+      <if test="tableid != null">
+        tableId = #{tableid,jdbcType=BIGINT},
+      </if>
+      <if test="mumberid != null">
+        mumberId = #{mumberid,jdbcType=BIGINT},
+      </if>
+      <if test="number != null">
+        number = #{number,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=DATE},
+      </if>
+      <if test="dinnertime != null">
+        dinnertime = #{dinnertime,jdbcType=DATE},
+      </if>
+    </set>
+    where reserve_id = #{reserveId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqm.pojo.TbReserveTable">
+    update tb_reserve_table
+    set areaId = #{areaid,jdbcType=BIGINT},
+      tableId = #{tableid,jdbcType=BIGINT},
+      mumberId = #{mumberid,jdbcType=BIGINT},
+      number = #{number,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=DATE},
+      dinnertime = #{dinnertime,jdbcType=DATE}
+    where reserve_id = #{reserveId,jdbcType=BIGINT}
+  </update>
+</mapper>

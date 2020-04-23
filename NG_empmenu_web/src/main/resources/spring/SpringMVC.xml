@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:dubbo="http://dubbo.apache.org/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://dubbo.apache.org/schema/dubbo http://dubbo.apache.org/schema/dubbo/dubbo.xsd">
+
+    <!--加载属性文件-->
+    <context:property-placeholder location="classpath:application.properties"/>
+
+    <!--扫描controller-->
+    <context:component-scan base-package="com.cqm"/>
+
+    <!--引入springmvc的头-->
+
+    <!--视图转换器,调用阿里巴巴的fastjson-->
+    <mvc:annotation-driven>
+        <mvc:message-converters register-defaults="true">
+            <bean class="com.alibaba.fastjson.support.spring.FastJsonHttpMessageConverter">
+                <property name="supportedMediaTypes" value="application/json"/>
+                <property name="features">
+                    <array>
+                        <value>WriteMapNullValue</value>
+                        <value>WriteDateUseDateFormat</value>
+                    </array>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!--声明dubbo服务-->
+    <dubbo:application name="empmenuWeb"/>
+    <dubbo:registry address="zookeeper://192.168.188.132:2181"/>
+    <dubbo:annotation package="com.cqm.empmenu.controller"/>
+
+    <!--配置springMvc上传-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--上传文件的编码-->
+        <property name="defaultEncoding" value="UTF-8"/>
+        <!--设置上传文件的限制 字节-->
+        <property name="maxUploadSize" value="5242880"/>
+    </bean>
+
+</beans>

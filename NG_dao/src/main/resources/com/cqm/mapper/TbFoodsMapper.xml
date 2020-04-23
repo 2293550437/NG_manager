@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cqm.mapper.TbFoodsMapper">
+  <resultMap id="BaseResultMap" type="com.cqm.pojo.TbFoods">
+    <id column="food_id" jdbcType="BIGINT" property="foodId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="Status" jdbcType="VARCHAR" property="status" />
+    <result column="meclassId" jdbcType="BIGINT" property="meclassid" />
+    <result column="tasteId" jdbcType="BIGINT" property="tasteid" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="subtitle" jdbcType="VARCHAR" property="subtitle" />
+    <result column="brandId" jdbcType="BIGINT" property="brandid" />
+    <result column="screattime" jdbcType="DATE" property="screattime" />
+    <result column="website" jdbcType="VARCHAR" property="website" />
+    <result column="empId" jdbcType="VARCHAR" property="empid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    food_id, name, Status, meclassId, tasteId, price, subtitle, brandId, screattime, 
+    website, empId
+  </sql>
+  <select id="selectByExample" parameterType="com.cqm.pojo.TbFoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from tb_foods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_foods
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from tb_foods
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.cqm.pojo.TbFoodsExample">
+    delete from tb_foods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.cqm.pojo.TbFoods">
+   <selectKey resultType="java.lang.Long" order="AFTER" keyProperty="foodId">
+     select last_insert_id() as id
+   </selectKey>
+    insert into tb_foods (food_id, name, Status, 
+      meclassId, tasteId, price, 
+      subtitle, brandId, screattime, 
+      website, empId)
+    values (#{foodId,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{meclassid,jdbcType=BIGINT}, #{tasteid,jdbcType=BIGINT}, #{price,jdbcType=VARCHAR}, 
+      #{subtitle,jdbcType=VARCHAR}, #{brandid,jdbcType=BIGINT}, #{screattime,jdbcType=DATE}, 
+      #{website,jdbcType=VARCHAR}, #{empid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cqm.pojo.TbFoods">
+    insert into tb_foods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="foodId != null">
+        food_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="status != null">
+        Status,
+      </if>
+      <if test="meclassid != null">
+        meclassId,
+      </if>
+      <if test="tasteid != null">
+        tasteId,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="subtitle != null">
+        subtitle,
+      </if>
+      <if test="brandid != null">
+        brandId,
+      </if>
+      <if test="screattime != null">
+        screattime,
+      </if>
+      <if test="website != null">
+        website,
+      </if>
+      <if test="empid != null">
+        empId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="foodId != null">
+        #{foodId,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="meclassid != null">
+        #{meclassid,jdbcType=BIGINT},
+      </if>
+      <if test="tasteid != null">
+        #{tasteid,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null">
+        #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="brandid != null">
+        #{brandid,jdbcType=BIGINT},
+      </if>
+      <if test="screattime != null">
+        #{screattime,jdbcType=DATE},
+      </if>
+      <if test="website != null">
+        #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="empid != null">
+        #{empid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.cqm.pojo.TbFoodsExample" resultType="java.lang.Long">
+    select count(*) from tb_foods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tb_foods
+    <set>
+      <if test="record.foodId != null">
+        food_id = #{record.foodId,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        Status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.meclassid != null">
+        meclassId = #{record.meclassid,jdbcType=BIGINT},
+      </if>
+      <if test="record.tasteid != null">
+        tasteId = #{record.tasteid,jdbcType=BIGINT},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.subtitle != null">
+        subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.brandid != null">
+        brandId = #{record.brandid,jdbcType=BIGINT},
+      </if>
+      <if test="record.screattime != null">
+        screattime = #{record.screattime,jdbcType=DATE},
+      </if>
+      <if test="record.website != null">
+        website = #{record.website,jdbcType=VARCHAR},
+      </if>
+      <if test="record.empid != null">
+        empId = #{record.empid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tb_foods
+    set food_id = #{record.foodId,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      Status = #{record.status,jdbcType=VARCHAR},
+      meclassId = #{record.meclassid,jdbcType=BIGINT},
+      tasteId = #{record.tasteid,jdbcType=BIGINT},
+      price = #{record.price,jdbcType=VARCHAR},
+      subtitle = #{record.subtitle,jdbcType=VARCHAR},
+      brandId = #{record.brandid,jdbcType=BIGINT},
+      screattime = #{record.screattime,jdbcType=DATE},
+      website = #{record.website,jdbcType=VARCHAR},
+      empId = #{record.empid,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cqm.pojo.TbFoods">
+    update tb_foods
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        Status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="meclassid != null">
+        meclassId = #{meclassid,jdbcType=BIGINT},
+      </if>
+      <if test="tasteid != null">
+        tasteId = #{tasteid,jdbcType=BIGINT},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="subtitle != null">
+        subtitle = #{subtitle,jdbcType=VARCHAR},
+      </if>
+      <if test="brandid != null">
+        brandId = #{brandid,jdbcType=BIGINT},
+      </if>
+      <if test="screattime != null">
+        screattime = #{screattime,jdbcType=DATE},
+      </if>
+      <if test="website != null">
+        website = #{website,jdbcType=VARCHAR},
+      </if>
+      <if test="empid != null">
+        empId = #{empid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cqm.pojo.TbFoods">
+    update tb_foods
+    set name = #{name,jdbcType=VARCHAR},
+      Status = #{status,jdbcType=VARCHAR},
+      meclassId = #{meclassid,jdbcType=BIGINT},
+      tasteId = #{tasteid,jdbcType=BIGINT},
+      price = #{price,jdbcType=VARCHAR},
+      subtitle = #{subtitle,jdbcType=VARCHAR},
+      brandId = #{brandid,jdbcType=BIGINT},
+      screattime = #{screattime,jdbcType=DATE},
+      website = #{website,jdbcType=VARCHAR},
+      empId = #{empid,jdbcType=VARCHAR}
+    where food_id = #{foodId,jdbcType=BIGINT}
+  </update>
+</mapper>

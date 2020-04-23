@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+             xmlns:context="http://www.springframework.org/schema/context"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--扫描包-->
+    <context:component-scan base-package="com.cqm.user"/>
+
+   <!--配置favicon.ico不进行安全拦截-->
+    <http pattern="/favicon.ico" security="none"/>
+   <!--自定义登录界面地址，不拦截-->
+    <!--以下静态资源不拦截-->
+    <http pattern="/empLogin.html" security="none"/>
+    <http pattern="/css/**" security="none"/>
+    <http pattern="/img/**" security="none"/>
+    <http pattern="/js/**" security="none"/>
+    <http pattern="/plugins/**" security="none"/>
+
+
+    <!--页面拦截规则-->
+    <http use-expressions="false">
+        <!--配置拦截请求地址-->
+        <intercept-url pattern="/**" access="ROLE_EMP"/>
+        <!--登录框-->
+        <!--default-target-url指定身份认证通过后总是跳转到指定页-->
+        <form-login login-page="/empLogin.html" default-target-url="/admin/index.html" always-use-default-target="true" authentication-failure-url="/empLogin.html"/>
+        <!--关闭csrf跨站攻击验证-->
+        <csrf disabled="true"/>
+        <!--允许前端框架使用-->
+        <headers>
+            <frame-options policy="SAMEORIGIN"/>
+        </headers>
+        <!--退出登录 logout-url="/aa"表自定义退出登录地址 logout-success-url=""表退出登录后跳到自定义页面-->
+        <logout />
+
+    </http>
+
+    <!--认证管理器  user-service-ref 应用自定义认证类-->
+    <authentication-manager>
+        <authentication-provider user-service-ref="userDetailsServiceImpl">
+            <!--应用密码加密器-->
+            <password-encoder ref="bcryptEncoder"/>
+        </authentication-provider>
+    </authentication-manager>
+
+    <!--声明springSecuryty自定义认证类,当认证类将@Service注解,是spring的注解，可以不用声明-->
+    <!--<beans:bean id="userDetailsServiceImpl" class="com.cqm.user.UserDetailsServiceImpl"/>-->
+
+    <!--声明dubbo服务-->
+    <dubbo:application name="empmenuWeb"/>
+    <dubbo:registry address="zookeeper://192.168.188.132:2181"/>
+    <dubbo:annotation package="com.cqm.user"/>
+
+    <!--声明密码加密器对象-->
+    <beans:bean id="bcryptEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+
+</beans:beans>

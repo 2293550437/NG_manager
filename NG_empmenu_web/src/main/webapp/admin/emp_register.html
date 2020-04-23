@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <!-- 页面meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>职员注册</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" name="viewport">
+  
+    <link rel="stylesheet" href="../plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/AdminLTE.css">
+    <link rel="stylesheet" href="../plugins/adminLTE/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+	<script src="../plugins/jQuery/jquery-2.2.3.min.js"></script>
+    <script src="../plugins/bootstrap/js/bootstrap.min.js"></script>
+    
+	<script type="text/javascript" src="../plugins/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="../js/base.js"></script>
+    <script type="text/javascript" src="../js/service/employeeService.js"></script>
+	<script type="text/javascript" src="../js/controller/baseController.js"></script>
+    <script type="text/javascript" src="../js/controller/employeeController.js"></script>
+    
+</head>
+
+<body class="hold-transition skin-red sidebar-mini" ng-app="NG" ng-controller="employeeController" ng-init="entity={}">
+
+            <!-- 正文区域 -->
+            <section class="content">
+
+                <div class="box-body">
+                    <div class="nav-tabs-custom">
+                        <ul class="nav nav-tabs">                       		
+                            <li class="active">
+                                <a href="#home" data-toggle="tab">职员基本信息</a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+
+                            <!--表单内容-->
+                            <div class="tab-pane active" id="home">
+                                <div class="row data-type">
+									<div class="col-md-2 title">职工账号</div>
+									<div class="col-md-10 data">
+										<input type="text" class="form-control" ng-model="entity.username"   placeholder="职工账号" value="">
+									</div>
+		                           <div class="col-md-2 title">职工密码</div>
+		                           <div class="col-md-10 data">
+		                               <input type="text" class="form-control" ng-model="entity.password"   placeholder="职工密码" value="">
+		                           </div>
+									<div class="col-md-2 title">职工姓名</div>
+									<div class="col-md-10 data">
+										<input type="text" class="form-control" ng-model="entity.name"   placeholder="职工姓名" value="">
+									</div>
+		                           <div class="col-md-2 title">性别</div>
+									<div class="col-md-10 data">
+										<input type="radio" ng-model="entity.sex" value="0">男
+										<input type="radio" ng-model="entity.sex" value="1">女
+									</div>
+								   <div class="col-md-2 title">年龄</div>
+		                           <div class="col-md-10 data">
+		                               <input type="text" class="form-control" ng-model="entity.age"  placeholder="年龄" value="">
+		                           </div>
+		                           <div class="col-md-2 title">联系电话</div>
+		                           <div class="col-md-10 data">
+									   <input type="text" class="form-control" ng-model="entity.phone"  placeholder="联系电话" value="">
+		                           </div>
+									<div class="col-md-2 title">毕业院校</div>
+									<div class="col-md-10 data">
+										<input type="text" class="form-control" ng-model="entity.grade"  placeholder="毕业院校" value="">
+									</div>
+									<div class="col-md-2 title">居住地址</div>
+									<div class="col-md-10 data">
+										<input type="text" class="form-control" ng-model="entity.address"  placeholder="居住地址" value="">
+									</div>
+									<div class="col-md-2 title">身份证号</div>
+									<div class="col-md-10 data">
+										<input type="text" class="form-control" ng-model="entity.idCard"  placeholder="身份证号" value="">
+									</div>
+									<div class="col-md-2 title">职位</div>
+									<div class="col-md-10 data">
+										<input type="radio" ng-model="entity.position" value="0">经理
+										<input type="radio" ng-model="entity.position" value="1">主厨
+										<input type="radio" ng-model="entity.position" value="2">服务员
+									</div>
+		                           <div class="col-md-2 title rowHeight2x">爱好</div>
+		                           <div class="col-md-10 data rowHeight2x">
+		                           	<textarea rows="4"  class="form-control" ng-model="entity.hobby"  placeholder="爱好"></textarea>
+		                           </div>
+		                           
+		                           <div class="col-md-2 title rowHeight2x">描述</div>
+		                           <div class="col-md-10 data rowHeight2x">
+		                               <textarea rows="4"  class="form-control" ng-model="entity.discription" placeholder="描述"></textarea>
+		                           </div>
+                                </div>
+                            </div>
+
+                        <!--tab内容/-->
+						<!--表单内容/-->
+                    </div>
+
+                   </div>
+                  <div class="btn-toolbar list-toolbar">
+				      <button class="btn btn-primary" ng-click="addAndUpdate()"><i class="fa fa-save"></i>保存</button>
+				      <button class="btn btn-default" >返回首页</button>
+				  </div>
+				</div>
+            </section>
+</body>
+
+</html>
